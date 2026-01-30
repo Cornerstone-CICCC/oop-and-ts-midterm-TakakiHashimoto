@@ -27,20 +27,30 @@ export class ProductItem extends Component {
   render() {
     const { id, title, price, description, category, image, rating } =
       this.props.product;
+
     const li = document.createElement("li");
+    li.classList.add("product-item");
+
     const contentWrapper = document.createElement("div");
+    contentWrapper.classList.add("contente-wrapper");
+
     const productImage = document.createElement("img");
     productImage.setAttribute("src", image);
     productImage.classList.add("product-img");
     const productTitle = document.createElement("p");
     productTitle.textContent = title;
+    productTitle.classList.add("p-title");
+
     const productdes = document.createElement("p");
     productdes.textContent = description;
+    productdes.classList.add("p-des");
+
     const productPrice = document.createElement("p");
-    productPrice.textContent = price;
+    productPrice.textContent = `$${price}`;
 
     const addBtn = document.createElement("button");
-    addBtn.textContent = " Add to cart";
+    addBtn.textContent = "Add to cart";
+    addBtn.classList.add("addBtn");
     addBtn.addEventListener("click", () => {
       // Tracking how many times the same itmes added to the cart
       // Find the an item that is inside of count
@@ -67,10 +77,11 @@ export class ProductItem extends Component {
     contentWrapper.appendChild(productTitle);
     contentWrapper.appendChild(productdes);
     contentWrapper.appendChild(productPrice);
+    contentWrapper.appendChild(addBtn);
 
     li.appendChild(productImage);
     li.appendChild(contentWrapper);
-    li.appendChild(addBtn);
+    // li.appendChild(addBtn);
 
     return li;
   }

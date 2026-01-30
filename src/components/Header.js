@@ -18,10 +18,9 @@ export class Header extends Component {
     // get the updated cart item list and set them to state
     this.state.cartItems = cartItem;
     this.countElement.textContent = this.state.cartItems.length;
-    console.log("updated");
+    // console.log("updated");
     // this one below works as well, but what is the difference between state and directly accessing the props?
     // this.countElement.textContent = this.props.cartContext.items.length;
-    this.render();
   }
 
   render() {
@@ -36,32 +35,44 @@ export class Header extends Component {
     // this is the div for wrapping cart icon and counter
     // means add itemCount and cart icon to this div
     const div = document.createElement("div");
+    div.classList.add("cart");
 
     const cartBtn = document.createElement("button");
-    cartBtn.addEventListener("click", () => {
-      this.display = !this.display;
-    });
 
     const itemCount = document.createElement("span");
-    if (this.state.cartItems.length !== 0) {
-      itemCount.innerText = this.state.cartItems.length;
-    }
+    // if (this.state.cartItems.length !== 0) {
+    //   itemCount.innerText = this.state.cartItems.length;
+    //   // itemCount.classList.remove("no-bg");
+    //   itemCount.style.backgroundColor = "orange";
+    // } else {
+    //   // itemCount.classList.add("no-bg");
+    //   itemCount.style.backgroundColor = "rgb(0,0,0,0)";
+    // }
     // console.log(this.props.cartContext.items.length);
-    if (this.display) {
-      // show the modal
-    }
+    itemCount.innerText = this.state.cartItems.length;
 
-    console.log(this.props.cartContext);
+    // console.log(this.props.cartContext);
     const cartList = new CartList({
       cartContext: this.props.cartContext,
     }).render();
 
+    cartList.classList.add("cart-list");
+
+    cartBtn.addEventListener("click", () => {
+      this.display = !this.display;
+      if (this.display) {
+        cartList.style.display = "block";
+      } else {
+        cartList.style.display = "none";
+      }
+    });
+
     cartBtn.appendChild(cartLogo);
     div.appendChild(cartBtn);
-    div.appendChild(cartList);
     div.appendChild(itemCount);
     nav.appendChild(logo);
     nav.appendChild(div);
+    nav.appendChild(cartList);
 
     this.countElement = itemCount;
 

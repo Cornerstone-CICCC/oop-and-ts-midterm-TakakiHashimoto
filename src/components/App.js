@@ -1,11 +1,15 @@
 import { Component } from "../common/Component.js";
 import { ProductList } from "./ProductList.js";
 import { Header } from "./Header.js";
+import { CategSelect } from "./CategSelect.js";
 
 export class App extends Component {
   constructor(props) {
     super(props);
     this.index = 0;
+    this.productList = new ProductList({
+      cartContext: this.props.cartContext,
+    });
   }
   render() {
     const app = document.createElement("div");
@@ -21,12 +25,22 @@ export class App extends Component {
       <footer></footer>
     `;
 
-    console.log(this.props.cartContext); // there is a cartContext here
-    const productList = new ProductList({
+    const categSelect = new CategSelect({
       cartContext: this.props.cartContext,
-    });
+      productList: this.productList,
+    }).render();
+
+    const categDiv = document.createElement("div");
+    categDiv.innerHTML = `<p>Category: </p>`;
+    categDiv.classList.add("categContainer");
+    categDiv.appendChild(categSelect);
+
+    const container = app.querySelector(".container");
+    container.appendChild(categDiv);
+    // console.log(this.props.cartContext); // there is a cartContext here
+
     const appProduct = app.querySelector(".products");
-    productList.mount(appProduct);
+    this.productList.mount(appProduct);
 
     const nav = new Header({ cartContext: this.props.cartContext }).render();
     const header = app.querySelector(".header");
@@ -58,7 +72,7 @@ export class App extends Component {
 
   showCarousel() {
     const wrap = document.querySelector(".image-wrap");
-    const carouselItems = document.querySelectorAll("li");
+    const carouselItems = wrap.querySelectorAll("li");
     if (this.index < 0) this.index = carouselItems.length - 1;
     if (this.index >= carouselItems.length) this.index = 0;
     wrap.style.transform = `translateX(-${this.index * 100}%)`;

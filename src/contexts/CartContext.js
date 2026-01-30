@@ -3,6 +3,7 @@ export class CartContext {
     this.items = [];
     this.funcs = [];
     this.count = [];
+    this.selectedData = [];
   }
 
   getItems() {
@@ -11,7 +12,14 @@ export class CartContext {
 
   addItem(item) {
     this.items.push(item);
-    console.log(this.items);
+    this.reRender();
+  }
+
+  delete(id) {
+    const index = this.items.findIndex((item) => item.id === id);
+    this.items.splice(index, 1);
+    const countIndex = this.count.findIndex((item) => item.id === id);
+    this.count.splice(countIndex, 1);
     this.reRender();
   }
 
@@ -24,4 +32,6 @@ export class CartContext {
       f(this.items);
     });
   }
+
+  // so far,
 }
