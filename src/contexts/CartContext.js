@@ -32,6 +32,4 @@ export class CartContext {
       f(this.items);
     });
   }
-
-  // so far,
 }
