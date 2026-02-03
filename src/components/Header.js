@@ -28,6 +28,7 @@ export class Header extends Component {
     nav.classList.add("nav");
     const logo = document.createElement("div");
     logo.innerText = "Amazon";
+    logo.classList.add("logo");
 
     const cartLogo = document.createElement("img");
     cartLogo.setAttribute("src", "/public/cart.svg");

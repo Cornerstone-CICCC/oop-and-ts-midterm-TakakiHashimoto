@@ -251,7 +251,23 @@ body {
   background-color: rgb(red, green, blue, 0);
 }
 
-@media (max-width: 700px) {
+.logo {
+  margin-left: 1rem;
+  font-size: 2rem;
+}
+
+@media (max-width: 570px) {
+  .cart-list {
+    left: 70%;
+    right: auto; /* IMPORTANT: remove right */
+    top: 8%;
+    transform: translateX(-50%);
+    width: min(360px, 92vw);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 450px) {
   .cart-list {
     left: 50%;
     right: auto; /* IMPORTANT: remove right */
